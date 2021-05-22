@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "1063793509075",
+    "project_id": "accounts-4f03d",
+    "storage_bucket": "accounts-4f03d.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1063793509075:android:6e99ca161314b0ad7b8a26",
+        "android_client_info": {
+          "package_name": "zath.contacts_app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1063793509075-le3lkl907ue8if5nqieg9obj5npumcfd.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCxrrn6KmIs9HOnV4nDq2dpHrxYfydIfIY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1063793509075-le3lkl907ue8if5nqieg9obj5npumcfd.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
