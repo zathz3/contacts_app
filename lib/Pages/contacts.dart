@@ -1,9 +1,12 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:contacts_app/Pages/add.dart';
 import 'package:contacts_app/Pages/edit.dart';
 import 'package:contacts_app/Pages/var.dart';
+import 'package:contacts_app/Pages/searchCep.dart';
+import 'package:contacts_app/Pages/calendar.dart';
 
 class Contacts extends StatefulWidget {
   @override
@@ -18,6 +21,7 @@ class _ContactsState extends State<Contacts> {
     String s1 = '';
     FirebaseFirestore db = FirebaseFirestore.instance;
     var snap = db.collection('Contacts').snapshots();
+    getUrl();
 
     return Scaffold(
       resizeToAvoidBottomInset: false,
@@ -40,6 +44,7 @@ class _ContactsState extends State<Contacts> {
                       MaterialPageRoute(builder: (context) => addContact()),
                     );
                   },
+                  textColor: Colors.blue,
                 ),
               ),
               Padding(
@@ -53,6 +58,7 @@ class _ContactsState extends State<Contacts> {
                       MaterialPageRoute(builder: (context) => editContact()),
                     );
                   },
+                  textColor: Colors.blue,
                 ),
               ),
               Padding(
@@ -62,6 +68,7 @@ class _ContactsState extends State<Contacts> {
                     elevation: 5.0,
                     height: 5.1,
                     child: Text('Delete'),
+                    textColor: Colors.red,
                     onPressed: (){
 
                           showDialog(
@@ -137,9 +144,28 @@ class _ContactsState extends State<Contacts> {
                       itemBuilder: (context, i) {
                         var item = snapshot.data.docs[i];
                         return ListTile(
-                          title: Text(item['Name']),
-                          subtitle: Text(item['Phone']),
-                          trailing: Text(item['id'] ),
+                          title: Row(
+                            children: <Widget> [
+                              CircleAvatar(
+                                radius: MediaQuery.of(context).size.width / 14,
+                                backgroundColor: Colors.grey,
+                                backgroundImage: (imageUrl == null ) ? AssetImage('assets/images/img1.png') : NetworkImage(imageUrl)
+                              ),
+
+                              Padding(
+                                padding: const EdgeInsets.only(left: 8.0),
+                                child: Column(
+                                  children: <Widget>[
+                                    Text(item['Name']),
+                                    Text(item['Phone'],
+                                      style: TextStyle(fontSize: 10),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ],
+                          ),
+                          trailing: Text(item['id']),
                         );
                       },
                     );
@@ -150,8 +176,49 @@ class _ContactsState extends State<Contacts> {
               ),
             ),
           ),
+
+
+          Row(
+            children: <Widget>[
+              Align(
+                alignment: Alignment.bottomLeft,
+                child: MaterialButton(
+                  elevation: 5.0,
+                  child: Text('Address'),
+                  onPressed: (){
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => searchCep()),
+                    );
+                  },
+                  textColor: Colors.blue,
+                ),
+              ),
+              Align(
+                alignment: Alignment.bottomLeft,
+                child: MaterialButton(
+                  elevation: 5.0,
+                  child: Text('Calendar'),
+                  onPressed: (){
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => calendar()),
+                    );
+                  },
+                  textColor: Colors.blue,
+                ),
+              ),
+            ],
+          ),
         ],
       ),
     );
   }
+  getUrl() async {
+    final ref = FirebaseStorage.instance.ref().child('Images/img1');
+// no need of the file extension, the name will do fine.
+    var url = await ref.getDownloadURL();
+    imageUrl = url;
+  }
 }
+

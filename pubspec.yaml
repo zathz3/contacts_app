@@ -23,6 +23,11 @@ environment:
 dependencies:
   firebase_core: ^1.1.1
   cloud_firestore: ^2.1.0
+  image_picker: ^0.8.0
+  firebase_storage: ^8.1.0
+  permission_handler: ^8.0.0+2
+  http: ^0.13.3
+  syncfusion_flutter_calendar: ^19.1.66
   flutter:
     sdk: flutter
 
@@ -40,6 +45,8 @@ dev_dependencies:
 
 # The following section is specific to Flutter.
 flutter:
+  assets:
+    - assets/images/img1.png
 
   # The following line ensures that the Material Icons font is
   # included with your application, so that you can use the icons in
